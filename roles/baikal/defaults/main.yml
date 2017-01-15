@@ -1,0 +1,6 @@
+---
+baikal_dir: "/var/www/"
+baikal_version: "0.4.6"
+baikal_db: sqlite
+baikal_user: www-data
+baikal_group: www-data

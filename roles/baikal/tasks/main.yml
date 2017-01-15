@@ -1,0 +1,36 @@
+---
+
+- name: Install zip
+  apt:
+      name: unzip
+
+- name: Install php database
+  apt:
+      name: php5-{{ baikal_db }}
+
+- name: Ensure ansible dir
+  file:
+      dest: /var/lib/ansible
+      state: directory
+
+- name: Check installed baikal_version
+  # workaround to ensure baikal is not downloaded every time again
+  register: baikalversion
+  template:
+      src: versionfile.j2
+      dest: /var/lib/ansible/baikal_version
+
+- name: Download baikal
+  unarchive:
+      src: https://github.com/fruux/Baikal/releases/download/{{ baikal_version }}/baikal-{{ baikal_version }}.zip
+      dest: "{{ baikal_dir }}"
+      remote_src: true
+  when: baikalversion|changed
+
+- name: Ensure write permissions on Specific/ directory
+  # here baikal store it's database and stuff...
+  file:
+      path: "{{ baikal_dir}}/baikal/Specific"
+      owner: "{{ baikal_user }}"
+      group: "{{ baikal_group }}"
+      recurse: yes
