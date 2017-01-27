@@ -1,7 +1,0 @@
----
-
-- name: Install netcat-openbsd
-  apt: name=netcat-openbsd
-
-- name: Install tcpdump
-  apt: name=tcpdump
