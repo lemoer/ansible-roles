@@ -4,3 +4,12 @@ baikal_version: "0.4.6"
 baikal_db: sqlite
 baikal_user: www-data
 baikal_group: www-data
+baikal_timezone: Europe/Berlin
+baikal_carddav_enabled: true
+baikal_caldav_enabled: true
+baikal_auth_type: Basic # alternative: Digest
+baikal_mysql:
+  host: 127.0.0.1
+  db: baikal
+  user: baikal
+  pass: baikal

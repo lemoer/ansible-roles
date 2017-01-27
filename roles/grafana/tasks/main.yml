@@ -1,0 +1,23 @@
+---
+
+- name: Install https for apt
+  apt:
+    name: apt-transport-https
+
+- name: Add grafana repository key
+  apt_key:
+    keyserver: keys.gnupg.net
+    id: 418A7F2FB0E1E6E7EABF6FE8C2E73424D59097AB
+
+- name: Add grafana repositories
+  register: grafanarepo
+  apt_repository:
+    repo: "deb https://packagecloud.io/grafana/testing/debian/ jessie main"
+
+- name: Update apt chache to get grafana packages
+  apt: update_cache=yes
+  when: grafanarepo|changed
+
+- name: Install grafana
+  apt:
+    name: grafana
