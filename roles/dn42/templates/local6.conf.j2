@@ -1,0 +1,10 @@
+# /etc/bird/local6.conf
+# should be a unique identifier, use same id as for ipv4
+router id {{ dn42_router_id }};
+
+define OWNAS = {{ dn42_my_as }};
+define OWNIP = {{ dn42_gateway_ip }};
+
+function is_self_net() {
+  return net ~ [{{ dn42_my_subnet }}+];
+}

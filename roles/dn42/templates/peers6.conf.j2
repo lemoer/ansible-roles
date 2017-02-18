@@ -1,0 +1,13 @@
+
+{% for peer in dn42_linklocal_peers %}
+protocol bgp {{ peer.name }} from dnpeers {
+{% if peer.ip.startswith('fe80') %}
+  neighbor {{ peer.ip }} % '{{ peer.interface }}' as {{ peer.as }};
+{% else %}
+  neighbor {{ peer.ip }} as {{ peer.as }};
+{% endif %}
+};
+
+{% endfor %}
+
+#neighbor <PEERING_IP> as <PEER_AS>;

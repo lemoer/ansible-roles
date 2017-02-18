@@ -1,0 +1,40 @@
+---
+
+- name: Install bird6
+  apt:
+    name: bird6
+
+- name: Generate bird6.conf
+  notify: Restart bird6
+  template:
+    src: bird6.conf.j2
+    dest: /etc/bird/bird6.conf
+
+- name: Generate local6.conf
+  notify: Restart bird6
+  template:
+    src: local6.conf.j2
+    dest: /etc/bird/local6.conf
+
+- name: Generate peers6.conf
+  notify: Restart bird6
+  template:
+    src: peers6.conf.j2
+    dest: /etc/bird/peers6.conf
+
+- name: Generate filter6.conf
+  notify: Restart bird6
+  template:
+    src: filter6.conf.j2
+    dest: /etc/bird/filter6.conf
+
+- name: Enable bird6
+  service:
+    name: bird6
+    enabled: yes
+    state: started
+
+- name: Disable bird
+  service:
+    name: bird
+    enabled: no
